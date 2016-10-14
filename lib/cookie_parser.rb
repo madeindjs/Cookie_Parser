@@ -17,9 +17,13 @@ module CookieParser
       items = cookie_string.split '; '
       
       items.each{ |item|
-        $stderr.puts item
         key_value = item.split "="
-        instance_variable_set( "@%s"% [sanitize_key(key_value[0])], key_value[1] ) # if key_value.size == 2
+        attribute_name = sanitize_key key_value[0]
+        self.class.__send__ :attr_accessor, attribute_name
+        self.__send__ "#{attribute_name}=", key_value[1]
+        # instance_variable_set "@#{attribute_name}", key_value[1]
+        # self.send "#{attribute_name}=", key_value[1]
+
       }
       
   	end
@@ -27,7 +31,7 @@ module CookieParser
 
     private
 
-
+    # clean cookie_string keys to become Ruby attribute
     def sanitize_key key
       key.gsub! '-', '_'
       key.gsub! ' ', ''

@@ -7,7 +7,7 @@ describe CookieParser do
 
   before(:each) do
     # get the cookie from a google request
-    uri = URI.parse 'https://www.instagram.com/p/BLbV86FBmu0/'
+    uri = URI.parse 'https://www.instagram.com/p/BLeOiwwhQy-/'
     http = Net::HTTP.new uri.host, uri.port
     request = Net::HTTP::Get.new uri.request_uri
     http.use_ssl = true
@@ -27,6 +27,10 @@ describe CookieParser do
 
   it "should have attributes" do
     expect(@cookie.instance_variables.count).not_to eq 0
+  end
+
+  it "should get csrftoken" do
+    expect(@cookie.csrftoken).not_to be nil
   end
 
 
