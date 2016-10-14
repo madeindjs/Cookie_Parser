@@ -1,8 +1,9 @@
 # CookieParser
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cookie_parser`. To experiment with that code, run `bin/console` for an interactive prompt.
+A very basic Cookie string parser. instanciate a Cookie from a cookie string & play with it as object with all its attributes
 
-TODO: Delete this and the text above, and describe your gem
+In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cookie_parser`. To experiment with that code, run `bin/console` for an interactive prompt.
+
 
 ## Installation
 
@@ -22,7 +23,24 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+~~~ruby
+require "cookie_parser"
+
+# get the cookie from a randome url
+uri = URI.parse 'https://www.instagram.com/p/BLeOiwwhQy-/'
+http = Net::HTTP.new uri.host, uri.port
+request = Net::HTTP::Get.new uri.request_uri
+http.use_ssl = true
+resp, data = http.request request
+cookie_string = resp.response['Set-Cookie']
+
+# create the CookieParser::Cookie from the cookie_string
+@cookie = CookieParser::Cookie.new cookie_string
+
+# now you can read all attributes (include crsf_token)
+@cookie.csrftoken
+# return something like ptLNsj1igf3jL1WbiANNLf3j1QhaMiYj
+~~~
 
 ## Development
 
