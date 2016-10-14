@@ -1,5 +1,16 @@
 require "cookie_parser/version"
 
 module CookieParser
-  # Your code goes here...
+
+
+  class Cookie
+
+    # initialize cookie froma string
+  	def initialize cookie_string
+  		
+  	end
+  	
+  	
+  end
+  
 end
